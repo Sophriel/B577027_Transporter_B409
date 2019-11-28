@@ -11,6 +11,7 @@
 #include <d3d11.h>
 #include <d3dx10math.h>
 #include <fstream>
+#include <vector>
 using namespace std;
 
 
@@ -25,7 +26,8 @@ using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 class ModelClass
 {
-private:
+public:
+
 	struct VertexType
 	{
 		D3DXVECTOR3 position;
@@ -55,6 +57,12 @@ public:
 
 	bool LoadModel(const char*);
 	void ReleaseModel();
+
+
+	std::vector<Mesh> meshes;
+	bool LoadModel(const std::string & filePath);
+	void ProcessNode(aiNode * node, const aiScene * scene);
+	Mesh ProcessMesh(aiMesh * mesh, const aiScene * scene);
 
 private:
 	bool InitializeBuffers(ID3D11Device*);

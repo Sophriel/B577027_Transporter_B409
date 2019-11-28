@@ -94,8 +94,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>..\lib\DebugDoubleDLL;$(DXSDK_DIR)Lib/x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ode_doubled.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\lib\Any;..\lib\DebugDoubleDLL;$(DXSDK_DIR)Lib/x86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ode_doubled.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,6 +154,7 @@
     <ClCompile Include="lightclass.cpp" />
     <ClCompile Include="lightshaderclass.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="meshclass.cpp" />
     <ClCompile Include="modelclass.cpp" />
     <ClCompile Include="OBJparser.cpp" />
     <ClCompile Include="ODEclass.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="inputclass.h" />
     <ClInclude Include="lightclass.h" />
     <ClInclude Include="lightshaderclass.h" />
+    <ClInclude Include="meshclass.h" />
     <ClInclude Include="modelclass.h" />
     <ClInclude Include="OBJparser.h" />
     <ClInclude Include="ODEclass.h" />
