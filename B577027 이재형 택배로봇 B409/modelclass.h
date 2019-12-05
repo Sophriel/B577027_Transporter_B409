@@ -14,12 +14,15 @@
 #include <vector>
 using namespace std;
 
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
 
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
 #include "textureclass.h"
-
+#include "meshclass.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: ModelClass
@@ -35,19 +38,12 @@ public:
 		D3DXVECTOR3 normal;
 	};
 
-	struct ModelType
-	{
-		float x, y, z;
-		float tu, tv;
-		float nx, ny, nz;
-	};
-
 public:
 	ModelClass();
 	ModelClass(const ModelClass&);
 	~ModelClass();
 
-	bool Initialize(ID3D11Device*, const char*, const WCHAR*);
+	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, const char*, const WCHAR*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 
@@ -55,14 +51,13 @@ public:
 	int GetIndexCount();
 	ID3D11ShaderResourceView* GetTexture();
 
-	bool LoadModel(const char*);
+	//bool LoadModel(const char*);
 	void ReleaseModel();
 
-
-	std::vector<Mesh> meshes;
-	bool LoadModel(const std::string & filePath);
+	vector<Mesh*> meshes;
+	bool LoadModel(const string & filePath);
 	void ProcessNode(aiNode * node, const aiScene * scene);
-	Mesh ProcessMesh(aiMesh * mesh, const aiScene * scene);
+	Mesh* ProcessMesh(aiMesh * mesh, const aiScene * scene);
 
 private:
 	bool InitializeBuffers(ID3D11Device*);
@@ -73,10 +68,13 @@ private:
 	void ReleaseTexture();
 
 private:
+	ID3D11Device* device;
+	ID3D11DeviceContext* deviceContext;
+
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
-	int m_vertexCount, m_indexCount;
+	unsigned int m_vertexCount, m_indexCount;
 	TextureClass* m_Texture;
-	ModelType* m_model;
+	//ModelType* m_model;
 };
 
 #endif

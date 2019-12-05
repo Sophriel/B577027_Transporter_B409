@@ -168,7 +168,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	Models.push_back(&BallModel);
 
 	//  obj파일들을 불러옵니다.
-	ObjParser* parser = new ObjParser;
+	//ObjParser* parser = new ObjParser;
 
 	for (unsigned int i = 0; i < Models.size(); i++)
 	{
@@ -177,62 +177,63 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		{
 			MessageBox(hwnd, L"Could not create the model object.", L"Error", MB_OK);
 			return false;
-		}
+		} 
 
-		parser->Parse(Models.at(i)->filename);
+		//parser->Parse(Models.at(i)->filename);
 
-		Models.at(i)->model->Initialize(m_D3D->GetDevice(), "../B577027 이재형 기말 프로젝트 택배로봇 B409/model.txt", Models.at(i)->texturename);
+		Models.at(i)->model->Initialize(m_D3D->GetDevice(), m_D3D->GetDeviceContext(), 
+			Models.at(i)->filename, Models.at(i)->texturename);
 		if (!result)
 		{
 			MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
 			return false;
 		}
 
-		//  강체 생성파트
-		Models.at(i)->body = dBodyCreate(m_PhyWorld->GetWorldID());
+		////  강체 생성파트
+		//Models.at(i)->body = dBodyCreate(m_PhyWorld->GetWorldID());
 
-		int preprocessFlags = (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES);
-		dTriMeshDataID tmdata = dGeomTriMeshDataCreate();
-		dGeomTriMeshDataBuildDouble(tmdata, parser->dVertices, 3 * sizeof(double), parser->vertexCount,
-			(dTriIndex*)&(parser->dIndices.at(0)), Models.at(i)->model->GetIndexCount(), 3 * sizeof(dTriIndex));
-		dGeomTriMeshDataPreprocess2(tmdata, preprocessFlags, NULL);
+		//int preprocessFlags = (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES);
+		//dTriMeshDataID tmdata = dGeomTriMeshDataCreate();
+		//dGeomTriMeshDataBuildDouble(tmdata, parser->dVertices, 3 * sizeof(double), parser->vertexCount,
+		//	(dTriIndex*)&(parser->dIndices.at(0)), Models.at(i)->model->GetIndexCount(), 3 * sizeof(dTriIndex));
+		//dGeomTriMeshDataPreprocess2(tmdata, preprocessFlags, NULL);
 
-		Models.at(i)->geom = dCreateTriMesh(m_PhyWorld->GetSpaceID(), tmdata, 0, 0, 0);
-		dGeomSetData(Models.at(i)->geom, tmdata);
+		//Models.at(i)->geom = dCreateTriMesh(m_PhyWorld->GetSpaceID(), tmdata, 0, 0, 0);
+		//dGeomSetData(Models.at(i)->geom, tmdata);
 
-		dGeomSetPosition(Models.at(i)->geom, Models.at(i)->pos.x, Models.at(i)->pos.y, Models.at(i)->pos.z);
-		dMatrix3 Rotation;
-		dRFromAxisAndAngle(Rotation, 1, 0, 0, M_PI / 2);
-		dGeomSetRotation(Models.at(i)->geom, Rotation);
+		//dGeomSetPosition(Models.at(i)->geom, Models.at(i)->pos.x, Models.at(i)->pos.y, Models.at(i)->pos.z);
+		//dMatrix3 Rotation;
+		//dRFromAxisAndAngle(Rotation, 1, 0, 0, M_PI / 2);
+		//dGeomSetRotation(Models.at(i)->geom, Rotation);
 
-		//  질량 세팅
-		dMass m;
-		dMassSetTrimesh(&m, DENSITY, Models.at(i)->geom);
-		dGeomSetPosition(Models.at(i)->geom, -m.c[0], -m.c[1], -m.c[2]);
-		dMassTranslate(&m, -m.c[0], -m.c[1], -m.c[2]);
+		////  질량 세팅
+		//dMass m;
+		//dMassSetTrimesh(&m, DENSITY, Models.at(i)->geom);
+		//dGeomSetPosition(Models.at(i)->geom, -m.c[0], -m.c[1], -m.c[2]);
+		//dMassTranslate(&m, -m.c[0], -m.c[1], -m.c[2]);
 
-		dGeomSetBody(Models.at(i)->geom, Models.at(i)->body);
-		//dBodySetMass(Models.at(i)->body, &m);
-		dBodySetPosition(Models.at(i)->body, Models.at(i)->pos.x, Models.at(i)->pos.y, Models.at(i)->pos.z);
+		//dGeomSetBody(Models.at(i)->geom, Models.at(i)->body);
+		////dBodySetMass(Models.at(i)->body, &m);
+		//dBodySetPosition(Models.at(i)->body, Models.at(i)->pos.x, Models.at(i)->pos.y, Models.at(i)->pos.z);
 
-		m_PhyWorld->SetGeomIDandBounceVec3(m_PhyWorld, Models.at(i)->geom, Models.at(i)->bVec3, i);
+		//m_PhyWorld->SetGeomIDandBounceVec3(m_PhyWorld, Models.at(i)->geom, Models.at(i)->bVec3, i);
 
 		//  디버그 텍스트 표시
 		Objs++;
-		Polys += (parser->vertexCount) / 3;
+		Polys += (1525) / 3;
 	}
 	
-	dBodySetKinematic(GroundModel.body);
-	dBodySetKinematic(LeftWallModel.body);
-	dBodySetKinematic(RightWallModel.body);
-	dBodySetKinematic(LeftUpWallModel.body);
-	dBodySetKinematic(RightUpWallModel.body);
-	dBodySetKinematic(ComModel.body);
-	dBodySetKinematic(PlayerModel.body);
+	//dBodySetKinematic(GroundModel.body);
+	//dBodySetKinematic(LeftWallModel.body);
+	//dBodySetKinematic(RightWallModel.body);
+	//dBodySetKinematic(LeftUpWallModel.body);
+	//dBodySetKinematic(RightUpWallModel.body);
+	//dBodySetKinematic(ComModel.body);
+	//dBodySetKinematic(PlayerModel.body);
 
-	dBodyAddForce(BallModel.body, 200, 100, 100);
+	//dBodyAddForce(BallModel.body, 200, 100, 100);
 
-	delete parser;
+	//delete parser;
 
 
 	// Create the light shader object.
@@ -443,16 +444,16 @@ bool GraphicsClass::Frame(int mouseX, int mouseY, int fps, int cpu, float frameT
 	bool result;
 	static float rotation = 0.0f;
 
-	////  물리 실행
-	m_PhyWorld->SimulationUpdate();
-	for (unsigned int i = 0; i < Models.size(); i++)
-	{
-		Models.at(i)->pos.x = (float)dBodyGetPosition(Models.at(i)->body)[0];
-		Models.at(i)->pos.y = (float)dBodyGetPosition(Models.at(i)->body)[1];
-		Models.at(i)->pos.z = (float)dBodyGetPosition(Models.at(i)->body)[2];
-	}
-	ComFSM();
-	ManageGame();
+	//////  물리 실행
+	//m_PhyWorld->SimulationUpdate();
+	//for (unsigned int i = 0; i < Models.size(); i++)
+	//{
+	//	Models.at(i)->pos.x = (float)dBodyGetPosition(Models.at(i)->body)[0];
+	//	Models.at(i)->pos.y = (float)dBodyGetPosition(Models.at(i)->body)[1];
+	//	Models.at(i)->pos.z = (float)dBodyGetPosition(Models.at(i)->body)[2];
+	//}
+	//ComFSM();
+	//ManageGame();
 
 	//  카메라 이동
 	CamRot.y -= (PreX - mouseX) * 0.1f;

@@ -48,6 +48,9 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="meshclass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="modelclass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -75,9 +78,6 @@
     <ClCompile Include="timerclass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="meshclass.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cameraclass.h">
@@ -92,22 +92,25 @@
     <ClInclude Include="fontclass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="fpsclass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="fontshaderclass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="graphicsclass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="fpsclass.h">
+    <ClInclude Include="lightclass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="inputclass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="lightclass.h">
+    <ClInclude Include="lightshaderclass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="lightshaderclass.h">
+    <ClInclude Include="meshclass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="modelclass.h">
@@ -137,9 +140,6 @@
     <ClInclude Include="timerclass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="meshclass.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Engine\font.ps">
@@ -148,10 +148,10 @@
     <None Include="..\Engine\font.vs">
       <Filter>리소스 파일</Filter>
     </None>
-    <None Include="..\Engine\light.vs">
+    <None Include="..\Engine\light.ps">
       <Filter>리소스 파일</Filter>
     </None>
-    <None Include="..\Engine\light.ps">
+    <None Include="..\Engine\light.vs">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>

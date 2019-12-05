@@ -1,7 +1,7 @@
 #include "meshclass.h"
 
-Mesh::Mesh(ID3D11Device *dev, ID3D11Device * device, ID3D11DeviceContext * deviceContext,
-	std::vector<ModelClass::ModelType>& vertices, std::vector<UINT>& indices)
+Mesh::Mesh(ID3D11Device *dev, ID3D11DeviceContext * deviceContext,
+	vector<ModelType>& vertices, vector<UINT>& indices)
 {
 	this->vertices = vertices;
 	this->indices = indices;
@@ -26,7 +26,7 @@ bool Mesh::Initialize(ID3D11Device *dev)
 
 	D3D11_BUFFER_DESC vbd;
 	vbd.Usage = D3D11_USAGE_IMMUTABLE;
-	vbd.ByteWidth = sizeof(ModelClass::ModelType) * vertices.size();
+	vbd.ByteWidth = sizeof(ModelType) * vertices.size();
 	vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vbd.CPUAccessFlags = 0;
 	vbd.MiscFlags = 0;

@@ -9,7 +9,7 @@ ModelClass::ModelClass()
 	m_vertexBuffer = 0;
 	m_indexBuffer = 0;
 	m_Texture = 0;
-	m_model = 0;
+	//m_model = 0;
 }
 ModelClass::ModelClass(const ModelClass& other)
 {
@@ -19,10 +19,12 @@ ModelClass::~ModelClass()
 }
 
 
-bool ModelClass::Initialize(ID3D11Device* device, const char* modelFilename, const WCHAR* textureFilename)
+bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* dvC, const char* modelFilename, const WCHAR* textureFilename)
 {
 	bool result;
 
+	this->device = device;
+	this->deviceContext = dvC;
 
 	// Load in the model data,
 	result = LoadModel(modelFilename);
@@ -112,11 +114,11 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 
 
 	// Load the vertex array and index array with data.
-	for(i=0; i<m_vertexCount; i++)
+	for(i=0; i < m_vertexCount; i++)
 	{
-		vertices[i].position = D3DXVECTOR3(m_model[i].x, m_model[i].y, m_model[i].z);
-		vertices[i].texture = D3DXVECTOR2(m_model[i].tu, m_model[i].tv);
-		vertices[i].normal = D3DXVECTOR3(m_model[i].nx, m_model[i].ny, m_model[i].nz);
+		vertices[i].position = D3DXVECTOR3(meshes.at(0)->vertices.at(i).x, meshes.at(0)->vertices.at(i).y, meshes.at(0)->vertices.at(i).z);
+		vertices[i].texture = D3DXVECTOR2(meshes.at(0)->vertices.at(i).tu, meshes.at(0)->vertices.at(i).tv);
+		vertices[i].normal = D3DXVECTOR3(meshes.at(0)->vertices.at(i).nx, meshes.at(0)->vertices.at(i).ny, meshes.at(0)->vertices.at(i).nz);
 
 		indices[i] = i;
 	}
@@ -250,73 +252,142 @@ void ModelClass::ReleaseTexture()
 }
 
 
-bool ModelClass::LoadModel(const char* filename)
-{
-	ifstream fin;
-	char input;
-	int i;
-
-
-	// Open the model file.
-	fin.open(filename);
-	
-	// If it could not open the file then exit.
-	if(fin.fail())
-	{
-		return false;
-	}
-
-	// Read up to the value of vertex count.
-	fin.get(input);
-	while(input != ':')
-	{
-		fin.get(input);
-	}
-
-	// Read in the vertex count.
-	fin >> m_vertexCount;
-
-	// Set the number of indices to be the same as the vertex count.
-	m_indexCount = m_vertexCount;
-
-	// Create the model using the vertex count that was read in.
-	m_model = new ModelType[m_vertexCount];
-	if(!m_model)
-	{
-		return false;
-	}
-
-	// Read up to the beginning of the data.
-	fin.get(input);
-	while(input != ':')
-	{
-		fin.get(input);
-	}
-	fin.get(input);
-	fin.get(input);
-
-	// Read in the vertex data.
-	for(i=0; i < m_vertexCount; i++)
-	{
-		fin >> m_model[i].x >> m_model[i].y >> m_model[i].z;
-		fin >> m_model[i].tu >> m_model[i].tv;
-		fin >> m_model[i].nx >> m_model[i].ny >> m_model[i].nz;
-	}
-
-	// Close the model file.
-	fin.close();
-
-	return true;
-}
+//bool ModelClass::LoadModel(const char* filename)
+//{
+//	ifstream fin;
+//	char input;
+//	int i;
+//
+//
+//	// Open the model file.
+//	fin.open(filename);
+//	
+//	// If it could not open the file then exit.
+//	if(fin.fail())
+//	{
+//		return false;
+//	}
+//
+//	// Read up to the value of vertex count.
+//	fin.get(input);
+//	while(input != ':')
+//	{
+//		fin.get(input);
+//	}
+//
+//	// Read in the vertex count.
+//	fin >> m_vertexCount;
+//
+//	// Set the number of indices to be the same as the vertex count.
+//	m_indexCount = m_vertexCount;
+//
+//	// Create the model using the vertex count that was read in.
+//	m_model = new ModelType[m_vertexCount];
+//	if(!m_model)
+//	{
+//		return false;
+//	}
+//
+//	// Read up to the beginning of the data.
+//	fin.get(input);
+//	while(input != ':')
+//	{
+//		fin.get(input);
+//	}
+//	fin.get(input);
+//	fin.get(input);
+//
+//	// Read in the vertex data.
+//	for(i=0; i < m_vertexCount; i++)
+//	{
+//		fin >> m_model[i].x >> m_model[i].y >> m_model[i].z;
+//		fin >> m_model[i].tu >> m_model[i].tv;
+//		fin >> m_model[i].nx >> m_model[i].ny >> m_model[i].nz;
+//	}
+//
+//	// Close the model file.
+//	fin.close();
+//
+//	return true;
+//}
 
 
 void ModelClass::ReleaseModel()
 {
-	if(m_model)
-	{
-		delete [] m_model;
-		m_model = 0;
-	}
+	//if(m_model)
+	//{
+	//	delete [] m_model;
+	//	m_model = 0;
+	//}
 
 	return;
+}
+
+
+bool ModelClass::LoadModel(const string & filePath)
+{
+	Assimp::Importer importer;
+
+	const aiScene* pScene = importer.ReadFile(filePath,
+		aiProcess_Triangulate |
+		aiProcess_ConvertToLeftHanded);
+
+	if (pScene == nullptr)
+		return false;
+
+	this->ProcessNode(pScene->mRootNode, pScene);
+	return true;
+}
+
+void ModelClass::ProcessNode(aiNode * node, const aiScene * scene)
+{
+	for (UINT i = 0; i < node->mNumMeshes; i++)
+	{
+		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+		meshes.push_back(this->ProcessMesh(mesh, scene));
+	}
+
+	for (UINT i = 0; i < node->mNumChildren; i++)
+	{
+		this->ProcessNode(node->mChildren[i], scene);
+	}
+}
+
+Mesh* ModelClass::ProcessMesh(aiMesh * mesh, const aiScene * scene)
+{
+	// Data to fill
+	vector<ModelType> vertices;
+	vector<UINT> indices;
+
+	//Get vertices
+	for (UINT i = 0; i < mesh->mNumVertices; i++)
+	{
+		ModelType vertex;
+
+		vertex.x = mesh->mVertices[i].x;
+		vertex.y = mesh->mVertices[i].y;
+		vertex.z = mesh->mVertices[i].z;
+
+		if (mesh->mTextureCoords[0])
+		{
+			vertex.tu = (float)mesh->mTextureCoords[0][i].x;
+			vertex.tv = (float)mesh->mTextureCoords[0][i].y;
+		}
+
+		vertices.push_back(vertex);
+	}
+
+	//Get indices
+	for (UINT i = 0; i < mesh->mNumFaces; i++)
+	{
+		aiFace face = mesh->mFaces[i];
+
+		for (UINT j = 0; j < face.mNumIndices; j++)
+			indices.push_back(face.mIndices[j]);
+	}
+
+	m_vertexCount = vertices.size();
+	m_indexCount = indices.size();
+
+	return &Mesh(this->device, this->deviceContext, vertices, indices);
 }
