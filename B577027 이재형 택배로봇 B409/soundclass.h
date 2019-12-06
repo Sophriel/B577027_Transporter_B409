@@ -53,9 +53,9 @@ public:
 	bool Initialize(HWND);
 	void Shutdown();
 	
-	bool PlayHit();
 	bool PlayWin();
-	bool PlayLose();
+	bool PlayWalk();
+	bool PlayFall();
 
 private:
 	bool InitializeDirectSound(HWND);

@@ -46,13 +46,13 @@ bool SoundClass::Initialize(HWND hwnd)
 		return false;
 	}
 
-	result = LoadWaveFile("../Engine/data/sounds/win.wav", &m_secondaryBuffer1[2]);
+	result = LoadWaveFile("../Engine/data/sounds/walk.wav", &m_secondaryBuffer1[2]);
 	if (!result)
 	{
 		return false;
 	}
 
-	result = LoadWaveFile("../Engine/data/sounds/lose.wav", &m_secondaryBuffer1[3]);
+	result = LoadWaveFile("../Engine/data/sounds/fall.wav", &m_secondaryBuffer1[3]);
 	if (!result)
 	{
 		return false;
@@ -367,7 +367,7 @@ bool SoundClass::PlayWaveFile()
 	return true;
 }
 
-bool SoundClass::PlayHit()
+bool SoundClass::PlayWin()
 {
 	HRESULT result;
 
@@ -394,7 +394,7 @@ bool SoundClass::PlayHit()
 
 	return true;
 }
-bool SoundClass::PlayWin()
+bool SoundClass::PlayWalk()
 {
 	HRESULT result;
 
@@ -421,7 +421,7 @@ bool SoundClass::PlayWin()
 
 	return true;
 }
-bool SoundClass::PlayLose()
+bool SoundClass::PlayFall()
 {
 	HRESULT result;
 

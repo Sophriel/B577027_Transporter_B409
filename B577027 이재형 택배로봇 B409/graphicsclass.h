@@ -23,7 +23,7 @@
 /////////////
 // GLOBALS //
 /////////////
-const bool FULL_SCREEN = false;
+const bool FULL_SCREEN = true;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
@@ -42,9 +42,12 @@ public:
 	public:
 		ModelClass* model;
 		const char* filename;
-		const WCHAR* texturename;
+		vector <const WCHAR*> texturename;
 
 		D3DXVECTOR3 pos;
+		D3DXVECTOR3 rot;
+
+		D3DXVECTOR3 box;
 		dBodyID body;
 		dGeomID geom;
 
@@ -70,7 +73,6 @@ public:
 	void MoveLeft();
 	void MoveRight();
 
-	void ComFSM();
 	void ManageGame();
 
 private:
@@ -87,13 +89,13 @@ private:
 	ODEclass* m_PhyWorld;
 
 	vector<Model*> Models;
-	Model GroundModel, LeftWallModel, RightWallModel, LeftUpWallModel, RightUpWallModel;
-	Model PlayerModel, ComModel, BallModel;
+	Model GroundModel, GroundModel1, LeftWallModel, RightWallModel;
+	Model PlayerModel, ComModel;
 
 	int Objs, Polys;
 
 	D3DXVECTOR3 CamPos, CamRot;
-	float speed = 1.0f;
+	float speed = 10.0f;
 	float PreX, PreY;
 
 	int PlayerScore, ComScore;

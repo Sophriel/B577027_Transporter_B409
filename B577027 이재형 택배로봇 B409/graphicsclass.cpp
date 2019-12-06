@@ -18,8 +18,8 @@ GraphicsClass::GraphicsClass()
 	Polys = 0;
 
 	CamPos.x = 0.0f;
-	CamPos.y = 0.0f;
-	CamPos.z = 0.0f;
+	CamPos.y = 200.0f;
+	CamPos.z = -500.0f;
 
 	CamRot.x = 0.0f;
 	CamRot.y = 0.0f;
@@ -32,71 +32,51 @@ GraphicsClass::GraphicsClass()
 	ComScore = 0;
 
 	GroundModel.model = 0;
-	GroundModel.pos = D3DXVECTOR3(0.0f, -10.0f, 0.0f);
+	GroundModel.pos = D3DXVECTOR3(-100.0f, 0.0f, 0.0f);
+	GroundModel.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	GroundModel.box = D3DXVECTOR3(100.0f, 10.0f, 650.0f);
+	GroundModel1.model = 0;
+	GroundModel1.pos = D3DXVECTOR3(100.0f, 0.0f, 0.0f);
+	GroundModel1.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	GroundModel1.box = D3DXVECTOR3(100.0f, 10.0f, 650.0f);
 	LeftWallModel.model = 0;
-	LeftWallModel.pos = D3DXVECTOR3(0.0f, -2.0f, -17.0f);
+	LeftWallModel.pos = D3DXVECTOR3(200.0f, 0.0f, 0.0f);
+	LeftWallModel.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	LeftWallModel.box = D3DXVECTOR3(10.0f, 2500.0f, 100.0f);
 	RightWallModel.model = 0;
-	RightWallModel.pos = D3DXVECTOR3(0.0f, -2.0f, 17.0f);
-	LeftUpWallModel.model = 0;
-	LeftUpWallModel.pos = D3DXVECTOR3(0.0f, 12.0f, -17.0f);
-	RightUpWallModel.model = 0;
-	RightUpWallModel.pos = D3DXVECTOR3(0.0f, 12.0f, 17.0f);
+	RightWallModel.pos = D3DXVECTOR3(-200.0f, 0.0f, 0.0f);
+	RightWallModel.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	RightWallModel.box = D3DXVECTOR3(10.0f, 2500.0f, 100.0f);
+
 	PlayerModel.model = 0;
-	PlayerModel.pos = D3DXVECTOR3(14.0f, 0.0f, 0.0f);
+	PlayerModel.pos = D3DXVECTOR3(-100.0f, 40.0f, 0.0f);
+	PlayerModel.rot = D3DXVECTOR3(0.0f, -90.0f, 0.0f);
+	PlayerModel.box = D3DXVECTOR3(50.0f, 40.0f, 20.0f);
 	ComModel.model = 0;
-	ComModel.pos = D3DXVECTOR3(-14.0f, 0.0f, 0.0f);
-	BallModel.model = 0;
-	BallModel.pos = D3DXVECTOR3(0.0f, 10.0f, 0.0f);
+	ComModel.pos = D3DXVECTOR3(100.0f, 30.0f, 0.0f);
+	ComModel.rot = D3DXVECTOR3(0.0f, 90.0f, 0.0f);
+	ComModel.box = D3DXVECTOR3(50.0f, 30.0f, 20.0f);
 
 	GroundModel.filename = "../Engine/data/objs/ground.obj";
-	LeftWallModel.filename = "../Engine/data/objs/LeftWall.obj";
-	RightWallModel.filename = "../Engine/data/objs/RightWall.obj";
-	LeftUpWallModel.filename = "../Engine/data/objs/LeftUpWall.obj";
-	RightUpWallModel.filename = "../Engine/data/objs/RightUpWall.obj";
-	PlayerModel.filename = "../Engine/data/objs/Player.obj";
-	ComModel.filename = "../Engine/data/objs/Player.obj";
-	BallModel.filename = "../Engine/data/objs/Ball.obj";
+	GroundModel1.filename = "../Engine/data/objs/ground.obj";
+	LeftWallModel.filename = "../Engine/data/objs/SideWall.obj";
+	RightWallModel.filename = "../Engine/data/objs/SideWall.obj";
+	PlayerModel.filename = "../Engine/data/objs/Player.fbx";
+	ComModel.filename = "../Engine/data/objs/com.fbx";
 
-	GroundModel.texturename = L"../Engine/data/textures/Grass.dds";
-	LeftWallModel.texturename = L"../Engine/data/textures/Wall.dds";
-	RightWallModel.texturename = L"../Engine/data/textures/Wall.dds";
-	LeftUpWallModel.texturename = L"../Engine/data/textures/Wall.dds";
-	RightUpWallModel.texturename = L"../Engine/data/textures/Wall.dds";
-	PlayerModel.texturename = L"../Engine/data/textures/Player.dds";
-	ComModel.texturename = L"../Engine/data/textures/Com.dds";
-	BallModel.texturename = L"../Engine/data/textures/Ball.dds";
+	GroundModel.texturename.push_back(L"../Engine/data/textures/metal.dds");
+	GroundModel1.texturename.push_back(L"../Engine/data/textures/metal.dds");
+	LeftWallModel.texturename.push_back(L"../Engine/data/textures/metal.dds");
+	RightWallModel.texturename.push_back(L"../Engine/data/textures/metal.dds");
+	PlayerModel.texturename.push_back(L"../Engine/data/textures/Player.png");
 
-	GroundModel.bVec3[0] = 0;
-	GroundModel.bVec3[1] = 200;
-	GroundModel.bVec3[2] = 0;
-
-	LeftWallModel.bVec3[0] = 0;
-	LeftWallModel.bVec3[1] = 30;
-	LeftWallModel.bVec3[2] = 30;
-
-	RightWallModel.bVec3[0] = 0;
-	RightWallModel.bVec3[1] = 30;
-	RightWallModel.bVec3[2] = -30;
-
-	LeftUpWallModel.bVec3[0] = 0;
-	LeftUpWallModel.bVec3[1] = -20;
-	LeftUpWallModel.bVec3[2] = 30;
-
-	RightUpWallModel.bVec3[0] = 0;
-	RightUpWallModel.bVec3[1] = -20;
-	RightUpWallModel.bVec3[2] = -30;
-
-	PlayerModel.bVec3[0] = -200;
-	PlayerModel.bVec3[1] = 0;
-	PlayerModel.bVec3[2] = 0;
-
-	ComModel.bVec3[0] = 200;
-	ComModel.bVec3[1] = 0;
-	ComModel.bVec3[2] = 0;
-
-	BallModel.bVec3[0] = 0;
-	BallModel.bVec3[1] = 0;
-	BallModel.bVec3[2] = 0;
+	ComModel.texturename.push_back(L"../Engine/data/textures/face_color_map.png");
+	ComModel.texturename.push_back(L"../Engine/data/textures/body_color_map.png");
+	ComModel.texturename.push_back(L"../Engine/data/textures/body_color_map.png");
+	ComModel.texturename.push_back(L"../Engine/data/textures/body_color_map.png");
+	ComModel.texturename.push_back(L"../Engine/data/textures/body_color_map.png");
+	ComModel.texturename.push_back(L"../Engine/data/textures/eyes_specular_map.png");
+	ComModel.texturename.push_back(L"../Engine/data/textures/eyes_specular_map.png");
 }
 GraphicsClass::GraphicsClass(const GraphicsClass& other)
 {
@@ -159,16 +139,11 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 	// Create the model object.
 	Models.push_back(&GroundModel);
+	Models.push_back(&GroundModel1);
 	Models.push_back(&LeftWallModel);
 	Models.push_back(&RightWallModel);
-	Models.push_back(&LeftUpWallModel);
-	Models.push_back(&RightUpWallModel);
 	Models.push_back(&PlayerModel);
 	Models.push_back(&ComModel);
-	Models.push_back(&BallModel);
-
-	//  obj파일들을 불러옵니다.
-	//ObjParser* parser = new ObjParser;
 
 	for (unsigned int i = 0; i < Models.size(); i++)
 	{
@@ -177,64 +152,55 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		{
 			MessageBox(hwnd, L"Could not create the model object.", L"Error", MB_OK);
 			return false;
-		} 
+		}
 
-		//parser->Parse(Models.at(i)->filename);
+		for (int j = 0; j < Models.at(i)->texturename.size(); j++)
+		{
+			Models.at(i)->model->InitTextures(m_D3D->GetDevice(), Models.at(i)->texturename.at(j));
+		}
 
-		Models.at(i)->model->Initialize(m_D3D->GetDevice(), m_D3D->GetDeviceContext(), 
-			Models.at(i)->filename, Models.at(i)->texturename);
+		Models.at(i)->model->Initialize(m_D3D->GetDeviceContext(), Models.at(i)->filename);
 		if (!result)
 		{
 			MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
 			return false;
 		}
 
-		////  강체 생성파트
-		//Models.at(i)->body = dBodyCreate(m_PhyWorld->GetWorldID());
+		//  강체 생성파트
+		Models.at(i)->body = dBodyCreate(m_PhyWorld->GetWorldID());
+		Models.at(i)->geom = dCreateBox(m_PhyWorld->GetSpaceID(), Models.at(i)->box.x, Models.at(i)->box.y, Models.at(i)->box.z);
 
-		//int preprocessFlags = (1U << dTRIDATAPREPROCESS_BUILD_FACE_ANGLES);
-		//dTriMeshDataID tmdata = dGeomTriMeshDataCreate();
-		//dGeomTriMeshDataBuildDouble(tmdata, parser->dVertices, 3 * sizeof(double), parser->vertexCount,
-		//	(dTriIndex*)&(parser->dIndices.at(0)), Models.at(i)->model->GetIndexCount(), 3 * sizeof(dTriIndex));
-		//dGeomTriMeshDataPreprocess2(tmdata, preprocessFlags, NULL);
+		dGeomSetPosition(Models.at(i)->geom, Models.at(i)->pos.x, Models.at(i)->pos.y, Models.at(i)->pos.z);
+		dMatrix3 Rotation;
+		dRFromAxisAndAngle(Rotation, 1, 0, 0, M_PI / 2);
+		dGeomSetRotation(Models.at(i)->geom, Rotation);
 
-		//Models.at(i)->geom = dCreateTriMesh(m_PhyWorld->GetSpaceID(), tmdata, 0, 0, 0);
-		//dGeomSetData(Models.at(i)->geom, tmdata);
+		//  질량 세팅
+		dMass m;
+		dMassSetBox(&m, DENSITY, 1, 1, 1);
+		dGeomSetPosition(Models.at(i)->geom, -m.c[0], -m.c[1], -m.c[2]);
+		dMassTranslate(&m, -m.c[0], -m.c[1], -m.c[2]);
 
-		//dGeomSetPosition(Models.at(i)->geom, Models.at(i)->pos.x, Models.at(i)->pos.y, Models.at(i)->pos.z);
-		//dMatrix3 Rotation;
-		//dRFromAxisAndAngle(Rotation, 1, 0, 0, M_PI / 2);
-		//dGeomSetRotation(Models.at(i)->geom, Rotation);
+		dGeomSetBody(Models.at(i)->geom, Models.at(i)->body);
+		dBodySetMass(Models.at(i)->body, &m);
+		dBodySetPosition(Models.at(i)->body, Models.at(i)->pos.x, Models.at(i)->pos.y, Models.at(i)->pos.z);
 
-		////  질량 세팅
-		//dMass m;
-		//dMassSetTrimesh(&m, DENSITY, Models.at(i)->geom);
-		//dGeomSetPosition(Models.at(i)->geom, -m.c[0], -m.c[1], -m.c[2]);
-		//dMassTranslate(&m, -m.c[0], -m.c[1], -m.c[2]);
-
-		//dGeomSetBody(Models.at(i)->geom, Models.at(i)->body);
-		////dBodySetMass(Models.at(i)->body, &m);
-		//dBodySetPosition(Models.at(i)->body, Models.at(i)->pos.x, Models.at(i)->pos.y, Models.at(i)->pos.z);
-
-		//m_PhyWorld->SetGeomIDandBounceVec3(m_PhyWorld, Models.at(i)->geom, Models.at(i)->bVec3, i);
 
 		//  디버그 텍스트 표시
 		Objs++;
-		Polys += (1525) / 3;
+		Polys += Models.at(i)->model->GetIndexCount(0) / 3;
 	}
-	
-	//dBodySetKinematic(GroundModel.body);
-	//dBodySetKinematic(LeftWallModel.body);
-	//dBodySetKinematic(RightWallModel.body);
-	//dBodySetKinematic(LeftUpWallModel.body);
-	//dBodySetKinematic(RightUpWallModel.body);
-	//dBodySetKinematic(ComModel.body);
-	//dBodySetKinematic(PlayerModel.body);
 
-	//dBodyAddForce(BallModel.body, 200, 100, 100);
+	dBodySetKinematic(GroundModel.body);
+	dBodySetKinematic(GroundModel1.body);
+	dBodySetKinematic(LeftWallModel.body);
+	dBodySetKinematic(RightWallModel.body);
 
-	//delete parser;
+	//dGeomSetPosition(PlayerModel.geom, PlayerModel.pos.x, PlayerModel.pos.y + 190, PlayerModel.pos.z);
+	//dGeomSetPosition(ComModel.geom, ComModel.pos.x, ComModel.pos.y + 190, ComModel.pos.z);
 
+	//dBodySetPosition(PlayerModel.body, PlayerModel.pos.x, PlayerModel.pos.y + 190, PlayerModel.pos.z);
+	//dBodySetPosition(ComModel.body, ComModel.pos.x, ComModel.pos.y + 190, ComModel.pos.z);
 
 	// Create the light shader object.
 	m_LightShader = new LightShaderClass;
@@ -270,7 +236,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	{
 		return false;
 	}
-	m_Light1->SetDiffuseColor(0.0f, 1.0f, 0.0f, 0.0f);
+	m_Light1->SetDiffuseColor(0.0f, 0.0f, 1.0f, 0.0f);
 	m_Light1->SetPosition(GroundModel.pos.x, GroundModel.pos.y, GroundModel.pos.z);
 
 	m_Light2 = new LightClass;
@@ -278,24 +244,24 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	{
 		return false;
 	}
-	m_Light2->SetDiffuseColor(1.0f, 1.0f, 1.0f, 0.0f);
-	m_Light2->SetPosition(PlayerModel.pos.x + 1.0f, PlayerModel.pos.y, PlayerModel.pos.z);
+	m_Light2->SetDiffuseColor(1.0f, 0.0f, 0.0f, 0.0f);
+	m_Light2->SetPosition(GroundModel1.pos.x, GroundModel1.pos.y, GroundModel1.pos.z);
 
 	m_Light3 = new LightClass;
 	if (!m_Light)
 	{
 		return false;
 	}
-	m_Light3->SetDiffuseColor(1.0f, 0.0f, 0.0f, 0.0f);
-	m_Light3->SetPosition(ComModel.pos.x, ComModel.pos.y, ComModel.pos.z);
+	m_Light3->SetDiffuseColor(1.0f, 1.0f, 1.0f, 0.0f);
+	m_Light3->SetPosition(PlayerModel.pos.x, PlayerModel.pos.y, PlayerModel.pos.z);
 
 	m_Light4 = new LightClass;
 	if (!m_Light)
 	{
 		return false;
 	}
-	m_Light4->SetDiffuseColor(0.0f, 0.0f, 1.0f, 0.0f);
-	m_Light4->SetPosition(BallModel.pos.x, BallModel.pos.y, BallModel.pos.z);
+	m_Light4->SetDiffuseColor(1.0f, 1.0f, 1.0f, 0.0f);
+	m_Light4->SetPosition(ComModel.pos.x, ComModel.pos.y, ComModel.pos.z);
 
 	// Initialize a base view matrix with the camera for 2D user interface rendering.
 	m_Camera->Render();
@@ -309,22 +275,13 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Initialize the text object.
-	result = m_Text->Initialize(m_D3D->GetDevice(), m_D3D->GetDeviceContext(), 
+	result = m_Text->Initialize(m_D3D->GetDevice(), m_D3D->GetDeviceContext(),
 		hwnd, screenWidth, screenHeight, baseViewMatrix);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the text object.", L"Error", MB_OK);
 		return false;
 	}
-
-	CamPos.x = 50.0f;
-	CamPos.y = 20.0f;
-	CamPos.z = 0.0f;
-
-	CamRot.x = 20.0f;
-	CamRot.y = -90.0f;
-	CamRot.z = 0.0f;
-
 
 	// Create the sound object. 
 	m_Sound = new SoundClass;
@@ -339,8 +296,6 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		MessageBox(hwnd, L"Could not initialize Direct Sound.", L"Error", MB_OK);
 		return false;
 	}
-
-
 
 	return true;
 }
@@ -444,16 +399,22 @@ bool GraphicsClass::Frame(int mouseX, int mouseY, int fps, int cpu, float frameT
 	bool result;
 	static float rotation = 0.0f;
 
-	//////  물리 실행
-	//m_PhyWorld->SimulationUpdate();
-	//for (unsigned int i = 0; i < Models.size(); i++)
-	//{
-	//	Models.at(i)->pos.x = (float)dBodyGetPosition(Models.at(i)->body)[0];
-	//	Models.at(i)->pos.y = (float)dBodyGetPosition(Models.at(i)->body)[1];
-	//	Models.at(i)->pos.z = (float)dBodyGetPosition(Models.at(i)->body)[2];
-	//}
-	//ComFSM();
-	//ManageGame();
+	//  물리 실행
+	m_PhyWorld->SimulationUpdate();
+	for (unsigned int i = 0; i < Models.size(); i++)
+	{
+		Models.at(i)->pos.x = (float)dBodyGetPosition(Models.at(i)->body)[0];
+		Models.at(i)->pos.y = (float)dBodyGetPosition(Models.at(i)->body)[1];
+		Models.at(i)->pos.z = (float)dBodyGetPosition(Models.at(i)->body)[2];
+
+		Models.at(i)->rot.x = (float)dBodyGetRotation(Models.at(i)->body)[0];
+		Models.at(i)->rot.y = (float)dBodyGetRotation(Models.at(i)->body)[1];
+		Models.at(i)->rot.z = (float)dBodyGetRotation(Models.at(i)->body)[2];
+	}
+
+	//PlayerModel.pos.y = (float)dBodyGetPosition(PlayerModel.body)[1] - 190;
+	//ComModel.pos.y = (float)dBodyGetPosition(ComModel.body)[1] - 190;
+	ManageGame();
 
 	//  카메라 이동
 	CamRot.y -= (PreX - mouseX) * 0.1f;
@@ -523,10 +484,10 @@ bool GraphicsClass::Frame(int mouseX, int mouseY, int fps, int cpu, float frameT
 		rotation -= 360.0f;
 	}
 
-	m_Light1->SetPosition(GroundModel.pos.x, GroundModel.pos.y, GroundModel.pos.z);
-	m_Light2->SetPosition(PlayerModel.pos.x + 3.0f, PlayerModel.pos.y, PlayerModel.pos.z);
-	m_Light3->SetPosition(ComModel.pos.x, ComModel.pos.y, ComModel.pos.z);
-	m_Light4->SetPosition(BallModel.pos.x, BallModel.pos.y, BallModel.pos.z);
+	m_Light1->SetPosition(GroundModel.pos.x, GroundModel.pos.y + 10.0f, GroundModel.pos.z);
+	m_Light2->SetPosition(GroundModel1.pos.x, GroundModel1.pos.y + 10.0f, GroundModel1.pos.z);
+	m_Light3->SetPosition(PlayerModel.pos.x, PlayerModel.pos.y + 10.0f, PlayerModel.pos.z);
+	m_Light4->SetPosition(ComModel.pos.x, ComModel.pos.y + 10.0f, ComModel.pos.z);
 
 	// Render the graphics scene.
 	result = Render(rotation);
@@ -579,26 +540,26 @@ bool GraphicsClass::Render(float rotation)
 	// Render the model using the light shader.
 
 	// Rotate the world matrix by the rotation value so that the triangle will spin.
-	//D3DXMatrixRotationY(&worldMatrix, rotation);
-	//D3DXMatrixTranslation(&translateMatrix, -180.0f, 20.0f, 0.0f);
-	//D3DXMatrixMultiply(&worldMatrix, &worldMatrix, &translateMatrix);
 
 	for (unsigned int i = 0; i < Models.size(); i++)
 	{
 		D3DXMatrixIdentity(&worldMatrix);
+		D3DXMatrixIdentity(&translateMatrix);
+		D3DXMatrixRotationYawPitchRoll(&worldMatrix, Models.at(i)->rot.y * 0.0174532925f, Models.at(i)->rot.x * 0.0174532925f, Models.at(i)->rot.z * 0.0174532925f);
 		D3DXMatrixTranslation(&translateMatrix, Models.at(i)->pos.x, Models.at(i)->pos.y, Models.at(i)->pos.z);
 		D3DXMatrixMultiply(&worldMatrix, &worldMatrix, &translateMatrix);
 
-		Models.at(i)->model->Render(m_D3D->GetDeviceContext());
-		//result = m_LightShader->Render(m_D3D->GetDeviceContext(), Models.at(i)->model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
-		//	Models.at(i)->model->GetTexture(), m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
-		//	m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
-		result = m_LightShader->Render(m_D3D->GetDeviceContext(), Models.at(i)->model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
-			Models.at(i)->model->GetTexture(), diffuseColor, lightPosition);
-
-		if (!result)
+		for (int j = 0; j < Models.at(i)->model->meshes.size(); j++)
 		{
-			return false;
+			Models.at(i)->model->Render(m_D3D->GetDeviceContext(), j);
+
+			result = m_LightShader->Render(m_D3D->GetDeviceContext(), Models.at(i)->model->GetIndexCount(j), worldMatrix, viewMatrix, projectionMatrix,
+				Models.at(i)->model->GetTexture(j), diffuseColor, lightPosition);
+
+			if (!result)
+			{
+				return false;
+			}
 		}
 	}
 
@@ -698,101 +659,37 @@ void GraphicsClass::GoRight()
 
 void GraphicsClass::MoveUp()
 {
-	PlayerModel.pos.y += 0.5f * speed;
-	if (PlayerModel.pos.y > 20.0f)
-		PlayerModel.pos.y = 20.0f;
-
-	dBodySetPosition(PlayerModel.body, PlayerModel.pos.x, PlayerModel.pos.y, PlayerModel.pos.z);
+	dBodyAddForce(PlayerModel.body, 0, 500, 0);
 }
 void GraphicsClass::MoveDown()
 {
-	PlayerModel.pos.y -= 0.5f * speed;
-	if (PlayerModel.pos.y < GroundModel.pos.y + 2.5f)
-		PlayerModel.pos.y = GroundModel.pos.y + 2.5f;
-
-	dBodySetPosition(PlayerModel.body, PlayerModel.pos.x, PlayerModel.pos.y, PlayerModel.pos.z);
+	dBodyAddForce(PlayerModel.body, 0, 0, 0);
 }
 void GraphicsClass::MoveLeft()
 {
-	PlayerModel.pos.z -= 0.5f * speed;
-	if (PlayerModel.pos.z < LeftWallModel.pos.z)
-		PlayerModel.pos.z = LeftWallModel.pos.z;
-
-	dBodySetPosition(PlayerModel.body, PlayerModel.pos.x, PlayerModel.pos.y, PlayerModel.pos.z);
+	dBodyAddForce(PlayerModel.body, -100, 0, 0);
 }
 void GraphicsClass::MoveRight()
 {
-	PlayerModel.pos.z += 0.5f * speed;
-	if (PlayerModel.pos.z > RightWallModel.pos.z)
-		PlayerModel.pos.z = RightWallModel.pos.z;
-
-	dBodySetPosition(PlayerModel.body, PlayerModel.pos.x, PlayerModel.pos.y, PlayerModel.pos.z);
-}
-
-void GraphicsClass::ComFSM()
-{
-	//ComModel.pos.y = BallModel.pos.y;
-	//ComModel.pos.z = BallModel.pos.z;
-
-	//  스무스하게 움직이도록 보정
-	if (ComModel.pos.y <= BallModel.pos.y)
-		ComModel.pos.y += (BallModel.pos.y - ComModel.pos.y) / 10.0f;
-	else if (ComModel.pos.y > BallModel.pos.y)
-		ComModel.pos.y -= (ComModel.pos.y - BallModel.pos.y) / 10.0f;
-
-	if (ComModel.pos.z <= BallModel.pos.z)
-		ComModel.pos.z += (BallModel.pos.z - ComModel.pos.z) / 10.0f;
-	else if (ComModel.pos.z > BallModel.pos.z)
-		ComModel.pos.z -= (ComModel.pos.z - BallModel.pos.z) / 10.0f;
-
-	//  벽 안넘어가도록 제한
-	if (ComModel.pos.y > 20.0f)
-		ComModel.pos.y = 20.0f;
-	else if (ComModel.pos.y < GroundModel.pos.y + 2.5f)
-		ComModel.pos.y = GroundModel.pos.y + 2.5f;
-
-	if (ComModel.pos.z < LeftWallModel.pos.z)
-		ComModel.pos.z = LeftWallModel.pos.z;
-	else if (ComModel.pos.z > RightWallModel.pos.z)
-		ComModel.pos.z = RightWallModel.pos.z;
-
-	dBodySetPosition(ComModel.body, ComModel.pos.x, ComModel.pos.y, ComModel.pos.z);
+	dBodyAddForce(PlayerModel.body, 100, 0, 00);
 }
 
 void GraphicsClass::ManageGame()
 {
-	//  장외
-	if (BallModel.pos.y < GroundModel.pos.y - 3.0f || BallModel.pos.z < LeftWallModel.pos.z - 1.0f || BallModel.pos.z > RightWallModel.pos.z + 1.0f)
+	if (PlayerModel.pos.y < GroundModel.pos.y - 10.0f )
 	{
-		BallModel.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		dBodySetForce(BallModel.body, 0, 0, 0);
-		dBodySetPosition(BallModel.body, BallModel.pos.x, BallModel.pos.y, BallModel.pos.z);
-	}
-
-	//  플레이어 방향 (적 승)
-	if (BallModel.pos.x > PlayerModel.pos.x + 2.0f)
-	{
-		BallModel.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		dBodySetForce(BallModel.body, 0, 0, 0);
-		dBodySetPosition(BallModel.body, BallModel.pos.x, BallModel.pos.y, BallModel.pos.z);
-
+		dBodySetPosition(PlayerModel.body, -100, 50, 0);
 		ComScore++;
-
-		m_Sound->PlayLose();
+		m_Sound->PlayFall();
 	}
 
-	//  적 방향 (플레이어 승)
-	else if (BallModel.pos.x < ComModel.pos.x - 2.0f)
+	if (ComModel.pos.y < GroundModel.pos.y - 10.0f)
 	{
-		BallModel.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		dBodySetForce(BallModel.body, 0, 0, 0);
-		dBodySetPosition(BallModel.body, BallModel.pos.x, BallModel.pos.y, BallModel.pos.z);
-
+		dBodySetPosition(ComModel.body, 100, 50, 0);
 		PlayerScore++;
-
-		m_Sound->PlayWin();
-	}
-
+		m_Sound->PlayFall();
+	}	
+	
 	m_Text->SetScore(PlayerScore, ComScore, m_D3D->GetDeviceContext());
 }
 

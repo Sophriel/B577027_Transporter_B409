@@ -12,6 +12,7 @@
 #include <d3dx10math.h>
 #include <fstream>
 #include <vector>
+#include <list>
 using namespace std;
 
 #include <assimp/Importer.hpp>
@@ -30,51 +31,61 @@ using namespace std;
 class ModelClass
 {
 public:
-
-	struct VertexType
-	{
-		D3DXVECTOR3 position;
-	    D3DXVECTOR2 texture;
-		D3DXVECTOR3 normal;
-	};
-
-public:
 	ModelClass();
 	ModelClass(const ModelClass&);
 	~ModelClass();
 
-	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, const char*, const WCHAR*);
+	bool InitTextures(ID3D11Device* device, const WCHAR* textureFilename);
+	bool Initialize(ID3D11DeviceContext*, const char*);
 	void Shutdown();
-	void Render(ID3D11DeviceContext*);
+	void Render(ID3D11DeviceContext*, int num);
 
-	int GetVertexCount();
-	int GetIndexCount();
-	ID3D11ShaderResourceView* GetTexture();
+	//int GetVertexCount();
+	int GetIndexCount(int i);
+	ID3D11ShaderResourceView* GetTexture(int num);
 
 	//bool LoadModel(const char*);
 	void ReleaseModel();
 
 	vector<Mesh*> meshes;
+	//vector<Texture> textures_loaded;
+
+
+
+private:
+	//bool InitializeBuffers(ID3D11Device*);
+	void ShutdownBuffers();
+	void RenderBuffers(ID3D11DeviceContext*);
+	void RenderMeshes(int num);
+
+	bool LoadTexture(ID3D11Device*, const WCHAR*);
+	void ReleaseTexture();
+
+
+	const aiScene* pScene;
+
 	bool LoadModel(const string & filePath);
 	void ProcessNode(aiNode * node, const aiScene * scene);
 	Mesh* ProcessMesh(aiMesh * mesh, const aiScene * scene);
 
-private:
-	bool InitializeBuffers(ID3D11Device*);
-	void ShutdownBuffers();
-	void RenderBuffers(ID3D11DeviceContext*);
+	//void LoadAnimation(const string path, SkinModel* model, UINT flag);
+	//void ProcessAnimation(const aiScene * pScene, SkinModel* skModel);
 
-	bool LoadTexture(ID3D11Device*, const WCHAR*);
-	void ReleaseTexture();
+	//string directory;
+	//string textype;
+	//vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type, string typeName, const aiScene * scene);
+	//string determineTextureType(const aiScene * scene, aiMaterial * mat);
+	//int getTextureIndex(aiString * str);
+	//ID3D11ShaderResourceView * getTextureFromModel(const aiScene * scene, int textureindex);
+
 
 private:
 	ID3D11Device* device;
 	ID3D11DeviceContext* deviceContext;
 
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
-	unsigned int m_vertexCount, m_indexCount;
-	TextureClass* m_Texture;
-	//ModelType* m_model;
+	vector<unsigned int> m_indexCount;
+	list<TextureClass*> m_Texture;
 };
 
 #endif

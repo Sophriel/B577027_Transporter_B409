@@ -1,38 +1,43 @@
 #pragma once
 #include <d3d11.h>
+#include <d3dx10math.h>
 #include <vector>
 using namespace std;
 
+#include "textureclass.h"
 
-struct ModelType
+struct VertexType
 {
-	float x, y, z;
-	float tu, tv;
-	float nx, ny, nz;
+	D3DXVECTOR3 position;
+	D3DXVECTOR2 texture;
+	D3DXVECTOR3 normal;
+};
+
+struct VertexBoneData
+{
+	UINT IDs[1];
+	float Weights[1];
 };
 
 class Mesh
 {
 private:
-	struct Texture
-	{
-		string type;
-		string path;
-		ID3D11ShaderResourceView *texture;
-	};
 
 public:
 	Mesh(ID3D11Device *dev, ID3D11DeviceContext * deviceContext,
-		vector<ModelType> & vertices, vector<UINT> & indices);
+		vector<VertexType> & vertices, vector<UINT> & indices, TextureClass* texture);
 	Mesh(const Mesh & mesh);
 	bool Initialize(ID3D11Device *dev);
+
+
+	void Draw();
 	void Release();
 
 public:
 	ID3D11Buffer *vertexbuffer, *indexbuffer;
-	vector<ModelType> vertices;
+	vector<VertexType> vertices;
 	vector<UINT> indices;
-	vector<Texture> textures;
+	TextureClass* m_Texture;
 
 	ID3D11Device *dev;
 	ID3D11DeviceContext * deviceContext;
